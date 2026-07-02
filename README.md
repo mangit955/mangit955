@@ -101,8 +101,8 @@ FastAPI + SQLite backend with session-aware conversation memory, Dockerized and 
 
 <div align="center">
 
-<img height="165" src="https://github-readme-stats.vercel.app/api?username=mangit955&show_icons=true&theme=default&hide_border=true&count_private=true" />
-<img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=mangit955&layout=compact&hide_border=true" />
+<!-- This SVG is generated and committed to this repo by .github/workflows/metrics.yml — no external server, never breaks -->
+<img src="./github-metrics.svg" alt="GitHub Metrics" width="100%" />
 
 </div>
 
