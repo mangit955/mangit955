@@ -20,6 +20,9 @@ Full-stack engineer. Distributed systems, async pipelines, real-time products. F
 
 ### Featured builds
 
+**[WoopCode — Autonomous Terminal AI Assistant](https://github.com/mangit955/woop-code)** · `TypeScript` `Bun` `React` `Ink` `Gemini`
+Terminal-native autonomous coding agent. Built a rich TUI using React and Ink, utilizing Bun for an ultra-fast runtime environment. Integrates with the Google GenAI SDK to understand codebase context, execute multi-step plans, and generate code directly from the command line.
+
 **[Flux — Perpetual Futures Exchange](https://github.com/mangit955/perpectual-futures)** · `TypeScript` `Bun` `PostgreSQL` `Redis Streams`
 Custom in-memory matching engine on a Treap-based price-level tree (O(log n) insert/cancel), deterministic price-time priority, self-trade prevention. Redis Streams + a transactional outbox pattern give exactly-once event persistence through crash recovery. Full trading lifecycle — funding, liquidations, ADL — driven by live Binance price feeds.
 
@@ -29,8 +32,6 @@ n8n-inspired automation engine, 50+ users. Drag-and-drop React Flow builder on a
 **[Fill.in — Collaborative Form Builder SaaS](https://github.com/mangit955/fill.in)** · `Next.js` `Supabase` `Zod`
 Multi-tenant form builder, 20+ active users. Conditional branching, real-time autosave, RBAC collaboration. Analytics dashboard at sub-200ms via indexed Postgres queries; end-to-end Zod validation on every route.
 
-**[FitCoach Agent — AI Fitness Coaching Platform](https://github.com/mangit955/fitness-coach-agent)** · `FastAPI` `LangChain` `Python`
-Multi-tool LLM agent — discrete LangChain tools for workout planning, macro calculation, progress retrieval, invoked autonomously instead of one monolithic prompt. FastAPI + SQLite backend, Dockerized, extended with a Telegram bot interface.
 
 ---
 
