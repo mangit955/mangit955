@@ -20,7 +20,7 @@ Full-stack engineer. Distributed systems, async pipelines, real-time products. F
 
 ### Featured builds
 
-**[WoopCode — Autonomous Terminal AI Assistant](https://github.com/mangit955/woop-code)** · `TypeScript` `Bun` `React` `Ink` `Gemini`
+**[WoopCode — Coding Harness](https://github.com/mangit955/woop-code)** · `TypeScript` `Bun` `React` `Ink` `Gemini`
 Terminal-native autonomous coding agent. Built a rich TUI using React and Ink, utilizing Bun for an ultra-fast runtime environment. Integrates with the Google GenAI SDK to understand codebase context, execute multi-step plans, and generate code directly from the command line.
 
 **[Flux — Perpetual Futures Exchange](https://github.com/mangit955/perpectual-futures)** · `TypeScript` `Bun` `PostgreSQL` `Redis Streams`
