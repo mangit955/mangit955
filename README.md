@@ -1,63 +1,38 @@
 # Manas Raghuwanshi
 
-**AI Engineer.** I build the systems *around* the model — agent runtimes, tool execution, context engineering, sandboxed execution, evaluation, and the durability work that decides whether an AI product survives contact with real users.
+**AI engineer building agent runtimes and developer infrastructure.** I work on the layer where model output meets system guarantees: tool execution, sandboxing, persistence, verification, evaluation, and context cost.
 
 [manasr.dev](https://manasr.dev) · [LinkedIn](https://www.linkedin.com/in/manas-raghuwanshi-526a55291) · [X](https://x.com/Ragu_dev23) · [Email](mailto:manasr955@gmail.com)
 
----
+## Selected work
 
-## What I'm building
+### [Nap](https://github.com/mangit955/nap) · durable runtime for long-running coding agents
 
-### [Nap](https://github.com/mangit955/nap) — a durable runtime for long-running coding agents
+Nap runs coding work outside the request that started it.
 
-Describe an app; an agent builds it in an isolated sandbox while you close the tab. The premise is that **a model saying it is finished is a claim, not a fact** — so every turn is committed, verified against the project's own checks, and repaired if it fails.
+- A Postgres-backed queue and event log let workers execute turns while the browser reconnects from durable `seq` values.
+- An E2B sandbox owns all six agent tools: read, write, edit, list, search, and command execution.
+- Each turn commits its workspace, discovers checks from the project's `package.json`, and creates a checkpoint only after verification. Failures open a bounded repair turn.
+- A documented nine-pod load run completed 2,310 turns at 100 concurrent with zero sequence gaps and zero duplicates. [Read the scale report.](https://github.com/mangit955/nap/blob/main/docs/scaling-cluster.md)
 
-- **Verify, then repair.** Checks are discovered from the project's own `package.json`, run cheapest-first and short-circuit at the first failure. A failure opens a bounded repair turn (≤3) that carries the failure into the next attempt's context. A *checkpoint* is a **verified** commit, so "last known-good" is a fact a machine can evaluate rather than a judgement someone renders by reading the chat.
-- **Execution left the request.** Turns are admitted, enqueued in Postgres, and claimed by a separate worker process. One in-flight turn per session is enforced by a partial unique index rather than by a `Map` some process has to remember — so a deploy drains instead of dropping work, and the tab is genuinely optional.
-- **Durable append, then fanout — in that order.** Events land in Postgres before anyone sees them, which makes catching up a single question: everything after `seq`. Reconnecting an hour later is the same operation as reconnecting a second later.
-- **Scale, measured rather than asserted.** A k6 ramp against a nine-pod Kubernetes cluster with KEDA on queue depth and an HPA on open sockets: **2,310 turns at 100 concurrent, 100% job/turn/verification completion, zero sequence gaps, zero duplicates**, including 219 mid-turn reconnects that each asked for the gap and got exactly it.
-- **NapBench** — a benchmark harness that scores the agent against real sandboxes and a real browser, with two funded measurement write-ups committed in full.
-- **3,894 tests across 289 files**, in four suites split by the environment each needs — node, `tsc`, jsdom, and a throwaway Postgres container.
+### [Woopcode](https://github.com/mangit955/woop-code) · terminal coding agent
 
-`TypeScript` `Bun` `Hono` `Next.js` `Postgres + Drizzle` `E2B` `Kubernetes + KEDA` `k6`
+Woopcode is a Bun/TypeScript CLI with provider adapters for Gemini, OpenAI, and Anthropic.
 
-### [Woopcode](https://github.com/mangit955/woop-code) — a terminal-native coding agent, built from scratch
+- Plan mode withholds write tools and rejects writes at runtime.
+- Approval classification parses shell structure and defaults unknown commands to risky.
+- Optional E2B execution, content-hash workspace sync, project-scoped sessions, replayable JSONL telemetry, and a Harbor adapter.
+- [Read the runtime loop](https://github.com/mangit955/woop-code/blob/main/runtime/loop.ts) · [read the approval boundary](https://github.com/mangit955/woop-code/blob/main/runtime/approval/classifier.ts) · [read sandbox sync](https://github.com/mangit955/woop-code/blob/main/runtime/sandbox/sync.ts)
 
-- Multi-provider agent runtime across **Gemini, OpenAI, and Anthropic**
-- Tool orchestration, repository-aware context, streaming, and session management
-- Fail-closed shell risk classification and approval policies
-- Sandbox-aware execution, tested against a real filesystem
-- Benchmark-driven context engineering and agent evaluation
+## Engineering notes
 
-`TypeScript` `Multi-provider` `Terminal UI`
-
----
-
-## What building these has actually taught me
-
-- **Smaller context is not automatically cheaper context.**
-  A compaction strategy in Woopcode cut peak prompt size by **36–43%** — and rewrote the cached prefix, destroying most of the provider's cache reuse. The bill went the wrong way for the right-looking reason.
-
-- **The ceiling that fires is rarely the one you designed for.**
-  A funded Nap session died on its fourth turn having assembled to a *fifth* of its context budget. A turn re-sends its whole transcript on every round trip, so its real cost is assembled size **×** step count. The truncation ladder was perfectly correct and had simply never run.
-
-- **A grader that looks harder than the guard will embarrass you.**
-  Nap's first funded measurement exposed a verifier blind spot no dry run could have: the sandbox template declared no `typecheck` script, so check discovery read three of five checks as `absent` and a job that never typechecked was reported **verified**. That drove a template fix, regression coverage, and an integration test that runs the real thing inside a real sandbox.
-
-- **Unrecognized shell commands should fail closed.**
-  For an agent holding write access to a repository, treating an unknown command as safe is a default that only looks convenient until it isn't.
-
-- **Durability changes what an agent product can be.**
-  Persisting before fanout and snapshotting idle sandboxes is what lets a user leave, come back, and neither lose the work nor pay for an idle machine in between.
-
----
+- In Woopcode, a context compaction change cut peak prompt size by 36–43% but reduced cache reuse. Fewer tokens did not mean lower cost.
+- In Nap, funded runs exposed a verifier blind spot: a missing sandbox `typecheck` script made absent checks look verified. The fix added template coverage, regression tests, and a real-sandbox integration case. [Read the measurement notes.](https://github.com/mangit955/nap/blob/main/docs/napbench-verification-measurement.md)
 
 ## Currently
 
-Building agent runtimes and developer infrastructure, and open to **AI Engineer / Applied AI / AI Infrastructure / Developer Tools** roles.
+I’m building agent runtimes and AI infrastructure. I’m open to AI Engineer, Applied AI, AI Infrastructure, and Developer Tools roles.
 
-I care most about problems where **models meet real systems** — where the interesting failure isn't the model being wrong, but the harness believing it.
+I’m interested in systems that make model behavior inspectable, recoverable, and safe to act on.
 
----
-
-🌐 [manasr.dev](https://manasr.dev) · 💼 [LinkedIn](https://www.linkedin.com/in/manas-raghuwanshi-526a55291) · 𝕏 [@Ragu_dev23](https://x.com/Ragu_dev23) · ✉️ [manasr955@gmail.com](mailto:manasr955@gmail.com)
+[Website](https://manasr.dev) · [LinkedIn](https://www.linkedin.com/in/manas-raghuwanshi-526a55291) · [X](https://x.com/Ragu_dev23) · [Email](mailto:manasr955@gmail.com)
