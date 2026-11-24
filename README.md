@@ -4,9 +4,8 @@
 
 [manasr.dev](https://manasr.dev) · [LinkedIn](https://www.linkedin.com/in/manas-raghuwanshi-526a55291) · [X](https://x.com/Ragu_dev23) · [Email](mailto:manasr955@gmail.com) 
 
-[![XERJ Corpus Hub contributor](https://hub.xerj.org/contributors/mangit955/badge.svg)](https://hub.xerj.org/contributors/mangit955)
-
 ## Selected work
+[![XERJ Corpus Hub contributor](https://hub.xerj.org/contributors/mangit955/badge.svg)](https://hub.xerj.org/contributors/mangit955)
 
 ### [Nap](https://github.com/mangit955/nap) · durable runtime for long-running coding agents
 
